@@ -21,6 +21,7 @@ const morganLog = morgan(function (tokens, req, res) {
 app.use(express.json());
 app.use(morganLog);
 app.use(cors());
+app.use(express.static("dist"));
 
 let phoneBook = [
   {
@@ -52,31 +53,6 @@ const generateId = () => {
 
 app.get("/", (request, response) => {
   const count = phoneBook.length;
-
-  var days = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ];
-  var months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
-
   const now = Date(new Date().toUTCString());
 
   response.send(`<div>Phonebook has info for ${count} people</div>
@@ -120,7 +96,7 @@ app.post("/api/persons/", (request, response) => {
   response.json(person);
 });
 
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3002;
 app.listen(PORT, () => {
   console.log(`server running on port: ${PORT}`);
 });
